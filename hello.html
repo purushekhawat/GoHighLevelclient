@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philip Hunt - Engineering Miracles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #FDFBF5; color: #1a1a1a; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .bg-brand-dark { background-color: #0a0a0a; }
+        .bg-brand-beige { background-color: #FDFBF5; }
+        .bg-brand-light-dark { background-color: #F5F3ED; }
+        .text-brand-gold { color: #d4af37; }
+        .btn-gold { background-color: #d4af37; color: #0a0a0a; transition: all 0.3s ease; }
+        .btn-gold:hover { background-color: #c09b2d; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); transform: translateY(-2px); }
+        .btn-outline-white { border: 1px solid #ffffff; color: #ffffff; transition: all 0.3s ease; }
+        .btn-outline-white:hover { background-color: #ffffff; color: #0a0a0a; transform: translateY(-2px); }
+        .header-scrolled { background-color: rgba(10, 10, 10, 0.9); backdrop-filter: blur(5px); }
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .service-card .extra-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .service-card.expanded .extra-content {
+            max-height: 500px; /* Adjust as needed */
+        }
+        .bg-custom-gold {
+            background-color: #d3900d;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1484807352052-23338990c6c6?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .title-underline {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1.5rem;
+        }
+        .title-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 15px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%23d4af37' stroke-width='3' fill='none'/%3E%3Cpath d='M0 8 Q 25 3, 50 8 T 100 8' stroke='%23d4af37' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="bg-brand-beige">
+
+    <!-- Header -->
+    <header id="main-header" class="bg-brand-dark text-white p-4 sticky top-0 w-full z-50 transition-all duration-300 shadow-lg">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" onclick="showPage('home')" class="text-3xl font-serif tracking-wider">Philip Hunt</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" onclick="showPage('home')" class="nav-link hover:text-brand-gold transition-colors">Home</a>
+                <a href="#" onclick="showPage('story')" class="nav-link hover:text-brand-gold transition-colors">My Story</a>
+                <a href="#" onclick="showPage('services')" class="nav-link hover:text-brand-gold transition-colors">Services</a>
+                <a href="#" onclick="showPage('booking')" class="btn-gold px-5 py-2 rounded-full text-sm font-semibold">Book a Session</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-gray-900 rounded-lg shadow-lg">
+            <a href="#" onclick="showPage('home'); closeMenu();" class="block py-3 px-4 text-base hover:bg-gray-800">Home</a>
+            <a href="#" onclick="showPage('story'); closeMenu();" class="block py-3 px-4 text-base hover:bg-gray-800">My Story</a>
+            <a href="#" onclick="showPage('services'); closeMenu();" class="block py-3 px-4 text-base hover:bg-gray-800">Services</a>
+            <a href="#" onclick="showPage('booking'); closeMenu();" class="block py-3 px-4 text-base text-brand-gold font-semibold hover:bg-gray-800">Book a Session</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page-content active">
+            <section class="h-screen hero-section text-white relative flex items-center justify-center text-center">
+                <div class="z-10 p-4">
+                    <h1 class="font-cursive text-8xl md:text-9xl text-brand-gold leading-none">Catalyst</h1>
+                    <p class="mt-2 text-5xl md:text-7xl font-serif text-white tracking-wider">Engineering Miracles</p>
+                    <p class="mt-8 max-w-2xl mx-auto text-gray-300">Collapse timelines and accelerate miraculous results through value-based manifestation. It's time to unlock your true purpose with integrity, passion, and joy.</p>
+                    <a href="#" onclick="showPage('booking')" class="mt-8 inline-block btn-gold px-8 py-3 rounded-full font-bold text-lg">Begin Your Transformation</a>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="py-20 md:py-24 bg-brand-light-dark">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="font-cursive text-6xl text-brand-gold title-underline">Miraculous Results</h2>
+                    <p class="font-serif text-xl mt-2 mb-12 text-gray-600">Hear from those who have transformed their reality.</p>
+                    <div class="grid md:grid-cols-3 gap-8">
+                         <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mt-10 -mr-10"></div>
+                            <span class="font-serif text-7xl text-white opacity-20 absolute top-0 left-4">“</span>
+                            <p class="text-lg italic relative z-10 pt-8">"Philip's approach completely transformed my business mindset. The alignment work we did together unlocked opportunities I never saw before. My revenue tripled within 6 months."</p>
+                            <div class="mt-6 border-t border-white/20 pt-4">
+                                <p class="font-serif font-bold text-xl">Sarah Mitchell</p>
+                                <p class="text-sm opacity-80">CEO, Digital Marketing Agency</p>
+                            </div>
+                        </div>
+                        <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mt-10 -mr-10"></div>
+                            <span class="font-serif text-7xl text-white opacity-20 absolute top-0 left-4">“</span>
+                            <p class="text-lg italic relative z-10 pt-8">"The Catalyst method helped me collapse timelines. What I thought would take five years, I manifested in one. This is true efficiency and alignment in action."</p>
+                            <div class="mt-6 border-t border-white/20 pt-4">
+                                <p class="font-serif font-bold text-xl">Jessica Lane</p>
+                                <p class="text-sm opacity-80">Management Consultant</p>
+                            </div>
+                        </div>
+                        <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mt-10 -mr-10"></div>
+                            <span class="font-serif text-7xl text-white opacity-20 absolute top-0 left-4">“</span>
+                            <p class="text-lg italic relative z-10 pt-8">"I found my purpose and passion again. The focus on integrity and core values created a foundation for success that feels effortless and fun. A truly miraculous experience."</p>
+                            <div class="mt-6 border-t border-white/20 pt-4">
+                                <p class="font-serif font-bold text-xl">Michael B.</p>
+                                <p class="text-sm opacity-80">Spiritual Seeker</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Philip's Story Section on Home Page -->
+            <section class="py-20 md:py-32 bg-brand-dark text-white">
+                <div class="container mx-auto px-6 md:px-16">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h4 class="font-cursive text-5xl text-brand-gold title-underline">Philip's Story</h4>
+                        <p class="text-gray-300 my-6">I help Leaders, Entrepreneurs, and Spiritual seekers find deep purpose and manifest their goals through mindset transformation, ancient wisdom, and aligned core values.</p>
+                        <p class="text-gray-300">After transforming my own life, I now empower others to do the same. Catalyst's holistic approach focuses on the entire being – body, soul, and spirit. When there's true alignment with your values, manifesting your goals becomes miraculously easy.</p>
+                        <a href="#" onclick="showPage('story')" class="mt-8 inline-block btn-gold px-6 py-2 rounded-full font-semibold">Read My Full Story</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Catalyst Method Section -->
+            <section class="py-20 md:py-24 bg-brand-beige">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="font-cursive text-6xl text-brand-gold title-underline">The Catalyst Method</h2>
+                    <p class="font-serif text-xl mt-2 mb-16">Manifest Through True Alignment</p>
+                    <div class="grid md:grid-cols-3 gap-8 items-start relative">
+                         <div class="hidden md:block absolute top-12 left-1/4 w-1/2 border-t-2 border-dashed border-gray-300"></div>
+                        <div class="relative z-10">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-brand-gold text-gray-900 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-2">Identify</h3>
+                            <p class="text-gray-600">Discover what's out of alignment within your mindset and values.</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-brand-gold text-gray-900 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-2">Align</h3>
+                            <p class="text-gray-600">Readjust your core values, vision, and focus for harmony.</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-brand-gold text-gray-900 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
+                               <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl mb-2">Manifest</h3>
+                            <p class="text-gray-600">Experience miraculous results with ease, joy, and momentum.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 1:1 Coaching Section on Home Page -->
+            <section class="py-20 md:py-24 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="font-cursive text-6xl text-brand-gold title-underline">1:1 Manifestation Coaching</h2>
+                    <p class="font-serif text-xl mt-2 mb-16">A Deeply Personalized Journey</p>
+                    <div class="grid md:grid-cols-3 gap-8 text-left">
+                        <!-- Block 1: Discovery -->
+                        <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">Deep Dive & Discovery</h3>
+                            <p class="mt-4 opacity-90">We begin by uncovering your core desires and identifying the subconscious blocks that have been holding you back from your true potential.</p>
+                        </div>
+                        <!-- Block 2: Alignment -->
+                        <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">Strategy & Alignment</h3>
+                            <p class="mt-4 opacity-90">Next, we create a personalized roadmap, aligning your actions and energy with your goals to create a clear path forward with ease and flow.</p>
+                        </div>
+                        <!-- Block 3: Manifestation -->
+                        <div class="bg-custom-gold p-8 rounded-lg text-white shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold">Accelerated Results</h3>
+                            <p class="mt-4 opacity-90">With a clear strategy and aligned energy, you'll collapse timelines and begin to manifest your desires with unprecedented speed and joy.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Donate Section -->
+            <section class="py-20 md:py-24 bg-brand-dark text-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="font-cursive text-6xl text-brand-gold title-underline">Pay It Forward</h2>
+                    <p class="font-serif text-xl mt-2 mb-4 text-gray-300">Support the Mission</p>
+                    <p class="max-w-2xl mx-auto mt-4 mb-8 text-gray-400">Your generous contribution helps provide scholarships and resources for aspiring leaders and spiritual seekers who are ready to engineer their own miracles but lack the financial means. Help us share the gift of manifestation with the world.</p>
+                    <a href="#" class="btn-gold px-8 py-3 rounded-full font-bold">Donate Now</a>
+                </div>
+            </section>
+
+             <!-- Booking Section on Home Page -->
+            <section class="py-20 md:py-24 bg-brand-beige">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12">
+                         <h2 class="font-cursive text-6xl text-brand-gold title-underline">Book Your Session</h2>
+                         <p class="font-serif text-xl mt-2">Let's connect and begin collapsing timelines.</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                         <div class="text-center">
+                             <p class="text-gray-700 mb-6">Use the calendar below to book your integrated discovery call. Find a time that works for you and let's begin your journey towards accelerated, miraculous results.</p>
+                             <div id="dummy-calendar-home" class="w-full text-left"></div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- My Story Page -->
+        <div id="story" class="page-content">
+            <section class="py-20 md:py-32 bg-brand-dark text-white">
+                <div class="container mx-auto px-6 md:px-16">
+                    <div class="text-center mb-16">
+                         <h2 class="font-cursive text-6xl text-brand-gold title-underline">My Story</h2>
+                         <p class="font-serif text-xl mt-2 text-gray-300">From Burnout to Breakthrough</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-16 items-center mb-16">
+                        <div>
+                            <img src="https://placehold.co/600x800/1a1a1a/d4af37?text=Philip+Hunt" alt="Philip Hunt" class="rounded-lg shadow-2xl w-full h-auto">
+                        </div>
+                        <div class="text-lg text-gray-300 space-y-6">
+                            <p>I help Leaders, Entrepreneurs, and Spiritual seekers find deep purpose and manifest their goals through mindset transformation, ancient wisdom, and aligned core values.</p>
+                            <p>For years, I was trapped in the corporate grind, chasing success but feeling empty. I achieved everything I thought I wanted, but the passion was gone. It was only after a period of intense burnout that I discovered the principles of value-based manifestation.</p>
+                            <p>After transforming my own life, I now empower others to do the same. Catalyst's holistic approach focuses on the entire being – body, soul, and spirit. When there's true alignment with your values, manifesting your goals becomes miraculously easy.</p>
+                        </div>
+                    </div>
+                     <div class="mt-20 text-center">
+                         <h3 class="font-serif text-4xl text-white mb-12">Moments on the Journey</h3>
+                         <div class="grid md:grid-cols-3 gap-8">
+                            <img src="https://placehold.co/600x400/1a1a1a/d4af37?text=Speaking+Event" alt="Philip Hunt speaking at an event" class="rounded-lg shadow-lg">
+                            <img src="https://placehold.co/600x400/1a1a1a/d4af37?text=Workshop" alt="Philip Hunt leading a workshop" class="rounded-lg shadow-lg">
+                            <img src="https://placehold.co/600x400/1a1a1a/d4af37?text=Retreat" alt="Philip Hunt at a retreat" class="rounded-lg shadow-lg">
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Services Page -->
+        <div id="services" class="page-content">
+             <section class="py-20 md:py-24 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="font-cursive text-6xl text-brand-gold title-underline">Services</h2>
+                    <p class="font-serif text-xl mt-2 mb-16">Manifest Through True Alignment</p>
+                    <div class="grid md:grid-cols-2 gap-12 text-left">
+                        <div class="service-card bg-custom-gold p-10 rounded-lg text-white shadow-lg cursor-pointer" onclick="toggleService(this)">
+                            <h3 class="font-serif text-3xl pb-2">1:1 Manifestation Coaching</h3>
+                            <p class="my-6">A deeply personalized journey to accelerate your results. We focus on optimizing your mindset, aligning with your core values, and collapsing timelines...</p>
+                            <div class="extra-content">
+                                <p class="my-4">This intensive program includes bi-weekly calls, personalized meditations, and unlimited support to help you break through limiting beliefs and step into your power. We will work together to create a customized roadmap for your success, identify and clear energetic blocks, and implement practical strategies to accelerate your manifestation journey. This is a high-touch, transformative experience designed for those who are truly ready for a quantum leap.</p>
+                            </div>
+                            <span class="font-semibold text-white underline">Click to Read More</span>
+                        </div>
+                        <div class="service-card bg-custom-gold p-10 rounded-lg text-white shadow-lg cursor-pointer" onclick="toggleService(this)">
+                            <h3 class="font-serif text-3xl pb-2">Consulting & Keynotes</h3>
+                            <p class="my-6">Bring the power of value-based manifestation to your organization. My keynotes and consulting services are designed to increase productivity and purpose...</p>
+                            <div class="extra-content">
+                                <p class="my-4">Ideal for corporate teams and events, these sessions provide actionable strategies to foster a culture of efficiency, passion, and miraculous results. Keynote topics can be tailored to your organization's needs, focusing on themes like leadership with integrity, building a purpose-driven team, and unlocking collective potential. Consulting packages offer a deeper dive into your company's structure and goals.</p>
+                            </div>
+                             <span class="font-semibold text-white underline">Click to Read More</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Booking Page -->
+        <div id="booking" class="page-content">
+            <section class="py-20 md:py-24 bg-brand-beige">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12">
+                         <h2 class="font-cursive text-6xl text-brand-gold title-underline">Book Your Session</h2>
+                         <p class="font-serif text-xl mt-2">Let's connect and begin collapsing timelines.</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                         <div class="text-center">
+                             <p class="text-gray-700 mb-6">Use the calendar below to book your integrated discovery call. Find a time that works for you and let's begin your journey towards accelerated, miraculous results.</p>
+                             <div id="dummy-calendar" class="w-full text-left"></div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-3xl font-serif text-white">Ready to Engineer Your Miracle?</h3>
+            <a href="#" onclick="showPage('booking')" class="mt-6 inline-block btn-gold px-8 py-3 rounded-full font-bold text-lg">Book Your Free Discovery Call</a>
+            <div class="mt-8 pt-8 border-t border-gray-700">
+                <p class="text-gray-500">&copy; 2024 Philip Hunt. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // --- Page Navigation ---
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function closeMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // --- Service Card Toggle ---
+        function toggleService(card) {
+            card.classList.toggle('expanded');
+        }
+        
+        // --- Calendar Generator ---
+        function initializeCalendar(containerId) {
+            const calendarContainer = document.getElementById(containerId);
+            if (calendarContainer) {
+                const today = new Date();
+                let currentMonth = today.getMonth();
+                let currentYear = today.getFullYear();
+
+                function renderCalendar(month, year) {
+                    calendarContainer.innerHTML = '';
+                    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    const firstDay = new Date(year, month).getDay();
+                    const daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+                    let header = document.createElement('div');
+                    header.className = 'flex justify-between items-center mb-4';
+                    header.innerHTML = `<button id="prev-month-${containerId}" class="p-2 rounded-full hover:bg-gray-100">&lt;</button><h3 class="font-serif text-xl font-semibold">${monthNames[month]} ${year}</h3><button id="next-month-${containerId}" class="p-2 rounded-full hover:bg-gray-100">&gt;</button>`;
+                    calendarContainer.appendChild(header);
+
+                    let daysGrid = document.createElement('div');
+                    daysGrid.className = 'grid grid-cols-7 gap-2 text-center text-sm text-gray-500';
+                    days.forEach(day => {
+                        let dayEl = document.createElement('div');
+                        dayEl.textContent = day;
+                        daysGrid.appendChild(dayEl);
+                    });
+                    calendarContainer.appendChild(daysGrid);
+
+                    let datesGrid = document.createElement('div');
+                    datesGrid.className = 'grid grid-cols-7 gap-2 mt-2';
+                    for (let i = 0; i < firstDay; i++) {
+                        datesGrid.appendChild(document.createElement('div'));
+                    }
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        let dateCell = document.createElement('button');
+                        dateCell.className = 'text-center p-2 rounded-full hover:bg-brand-gold hover:text-white transition-colors';
+                        dateCell.textContent = i;
+                        if (i === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                            dateCell.className += ' bg-brand-dark text-white';
+                        }
+                        datesGrid.appendChild(dateCell);
+                    }
+                    calendarContainer.appendChild(datesGrid);
+                    
+                    document.getElementById(`prev-month-${containerId}`).addEventListener('click', () => {
+                        currentMonth--;
+                        if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+                        renderCalendar(currentMonth, currentYear);
+                    });
+                    document.getElementById(`next-month-${containerId}`).addEventListener('click', () => {
+                        currentMonth++;
+                        if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+                        renderCalendar(currentMonth, currentYear);
+                    });
+                }
+                renderCalendar(currentMonth, currentYear);
+            }
+        }
+
+        window.onload = function() {
+            showPage('home'); // Show home page by default
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Header Scroll Effect ---
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            });
+            
+            // --- Initialize Calendars ---
+            initializeCalendar('dummy-calendar');
+            initializeCalendar('dummy-calendar-home');
+        }
+    </script>
+</body>
+</html>
